@@ -111,38 +111,105 @@ operations = {
     "^": exponent
 }
 
-number_one = int(input("Select your first number... "))
-number_two = int(input("Select your second number... "))
+calculate_sum = True
 
-for symbol in operations:
+# Embedding all logic in a while loop
+
+while calculate_sum == True:
+
+  number_one = int(input("Select your first number... "))
+  number_two = int(input("Select your second number... "))
+
+  for symbol in operations:
+      print(symbol)
+
+  operator = input("Which operator are you choosing?: '+', '-', '*', '/' or '^' ")
+
+  # Angela solution
+  calculation_function = operations[operator]
+  the_answer = calculation_function(number_one, number_two)
+
+  # CHAT GPT solution
+  if operator in operations:
+      first_answer = operations[operator](number_one, number_two)
+      print(f"{number_one} {operator} {number_two} = {first_answer}")
+  else:
+      print("Invalid operator selected.")
+
+  # Angela solution print check
+  print(f"Once again the answer is {the_answer}")
+
+  # A third operation - Angela Version
+
+  operator = input("Pick ANOTHER operator: '+', '-', '*', '/' or '^' ")
+  number_three = int(input("Pick a third number: "))
+  calculation_function = operations[operator]
+  # Below line overrides the first calculation operator
+  # second_answer = calculation_function(calculation_function(number_one, number_two), number_three)
+  # (3 + 5) * 3 changes to (3 * 5) * 3 = 45
+
+  # Correct line - thanks to pointers
+  second_answer = calculation_function(first_answer, number_three)
+
+  print(f"{first_answer} {operator} {number_three} = {second_answer}")
+
+# Condition to break loop or continue
+
+  play_on = input("Shall we do another sum? 'Yes' to continue").lower()
+
+  if play_on == 'yes':
+      continue
+  else:
+      break
+
+# Angela Version - loop always uses answer from the previous sum
+  
+# ISSUE - no exit loop, always recursively calls or continues while loop
+  
+from replit import clear
+
+from art import logo
+
+
+def add(n1, n2):
+  return n1 + n2
+
+def subtract(n1, n2):
+  return n1 - n2
+
+def multiply(n1, n2):
+  return n1 * n2
+
+def divide(n1, n2):
+  return n1 / n2
+
+operations = {
+  "+": add,
+  "-": subtract,
+  "*": multiply,
+  "/": divide
+}
+
+def calculator():
+  print(logo)
+
+  num1 = float(input("+"))
+  for symbol in operations:
     print(symbol)
+  should_continue = True
+ 
+  while should_continue:
+    operation_symbol = input("Pick an operation: ")
+    num2 = float(input("What's the next number?: "))
+    calculation_function = operations[operation_symbol]
+    answer = calculation_function(num1, num2)
+    print(f"{num1} {operation_symbol} {num2} = {answer}")
 
-operator = input("Which operator are you choosing?: '+', '-', '*', '/' or '^' ")
+    if input(f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: ") == 'y':
+      num1 = answer
+    else:
+      should_continue = False
+      clear()
+      calculator()
 
-# Angela solution
-calculation_function = operations[operator]
-the_answer = calculation_function(number_one, number_two)
-
-# CHAT GPT solution
-if operator in operations:
-    first_answer = operations[operator](number_one, number_two)
-    print(f"{number_one} {operator} {number_two} = {first_answer}")
-else:
-    print("Invalid operator selected.")
-
-# Angela solution print check
-print(f"Once again the answer is {the_answer}")
-
-# A third operation - Angela Version
-
-operator = input("Pick ANOTHER operator: '+', '-', '*', '/' or '^' ")
-number_three = int(input("Pick a third number: "))
-calculation_function = operations[operator]
-# Below line override the first calculations operator
-# second_answer = calculation_function(calculation_function(number_one, number_two), number_three)
-# (3 + 5) * 3 changes to (3 * 5) * 3 = 45
-
-# Correct line - thanks to pointers
-second_answer = calculation_function(first_answer, number_three)
-
-print(f"{first_answer} {operator} {number_three} = {second_answer}")
+calculator()
