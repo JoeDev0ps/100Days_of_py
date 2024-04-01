@@ -1,6 +1,6 @@
 import random
-from replit import clear
-from art import logo
+# from replit import clear
+# from art import logo
 
 def deal_card():
   """Returns a random card from the deck."""
@@ -41,7 +41,7 @@ def compare(user_score, computer_score):
 
 
 def play_game():
-  print(logo)
+  # print(logo)
   user_cards = []
   computer_cards = []
   is_game_over = False
@@ -77,5 +77,5 @@ def play_game():
 
 
 while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
-  clear()
+  # clear()
   play_game()
