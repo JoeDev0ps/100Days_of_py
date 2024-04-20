@@ -45,8 +45,51 @@
 # print(days)
 
 
-# Calculator project
+# # Calculator project - first ver
 
+# def add(n1, n2):
+#     return n1 + n2
+
+# def subtract(n1, n2):
+#     return n1 - n2
+
+
+# def multiply(n1, n2):
+#     return n1 * n2
+
+
+# def divide(n1, n2):
+#     return n1 / n2
+
+# operators = {
+#     '+': add,
+#     '-': subtract,
+#     '*': multiply,
+#     '/': divide
+# }
+
+# num1 = float(input("What's the first number? "))
+# num2 = float(input("What's the second number? "))
+
+# for symbol in operators:
+#     print(symbol)
+
+# operation_symbol = input("Pick an operator from the list above: Add, Subtract, Multiply or Divide: ")
+# first_answer = operators[operation_symbol](num1, num2)
+
+# # add :,.0f to round decimals to a whole int
+# print(f"{num1} {operation_symbol} {num2} = {first_answer}")
+
+# num3 = float(input("Pick another number: "))
+# operation_symbol = input("Pick another operator: Add, Subtract, Multiply or Divide: ")
+# second_answer = operators[operation_symbol](first_answer, num3)
+# print(f"{first_answer} {operation_symbol} {num3} = {second_answer}")
+
+# # If instead of using first_answer we copied the whole line
+# # i.e, second_answer = operators[operation_symbol](num1, num2), num3)
+# # This would create an error as we'd change the operator of the original function call
+
+# # Calculator project - second ver
 def add(n1, n2):
     return n1 + n2
 
@@ -68,15 +111,31 @@ operators = {
     '/': divide
 }
 
-num1 = float(input("What's the first number? "))
-num2 = float(input("What's the second number? "))
+def calculator():
+    num1 = float(input("What's the first number? "))
 
-for symbol in operators:
-    print(symbol)
+    for symbol in operators:
+        print(symbol)
 
-operation_symbol = input("Pick an operator from the list above: Add, Subtract, Multiply or Divide: ")
-answer = operators[operation_symbol](num1, num2)
+    should_continue = True
 
-# add :,.0f to round decimals to a whole int
-print(f"{num1} {operation_symbol} {num2} = {answer}")
+    while should_continue:
+        operation_symbol = input("Pick an operator from the list above: Add, Subtract, Multiply or Divide: ")
+        num2 = float(input("What's the second number? "))
+        answer = operators[operation_symbol](num1, num2)
 
+        print(f"{num1} {operation_symbol} {num2} = {answer}")
+
+        user_dec = input("Type 'y' to continue, 'a' to start again, or 'n' to quit... ").lower()
+        
+        if user_dec == 'n':
+            break
+        elif user_dec == 'a':
+            should_continue = False
+            calculator()
+        else:
+            num1 = answer
+            continue
+
+if __name__ == '__main__':
+    calculator()
