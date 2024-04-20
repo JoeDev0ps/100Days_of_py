@@ -90,6 +90,25 @@
 # # This would create an error as we'd change the operator of the original function call
 
 # # Calculator project - second ver
+from replit import clear
+
+logo = """
+ _____________________
+|  _________________  |
+| | Pythonista   0. | |  .----------------.  .----------------.  .----------------.  .----------------. 
+| |_________________| | | .--------------. || .--------------. || .--------------. || .--------------. |
+|  ___ ___ ___   ___  | | |     ______   | || |      __      | || |   _____      | || |     ______   | |
+| | 7 | 8 | 9 | | + | | | |   .' ___  |  | || |     /  \     | || |  |_   _|     | || |   .' ___  |  | |
+| |___|___|___| |___| | | |  / .'   \_|  | || |    / /\ \    | || |    | |       | || |  / .'   \_|  | |
+| | 4 | 5 | 6 | | - | | | |  | |         | || |   / ____ \   | || |    | |   _   | || |  | |         | |
+| |___|___|___| |___| | | |  \ `.___.'\  | || | _/ /    \ \_ | || |   _| |__/ |  | || |  \ `.___.'\  | |
+| | 1 | 2 | 3 | | x | | | |   `._____.'  | || ||____|  |____|| || |  |________|  | || |   `._____.'  | |
+| |___|___|___| |___| | | |              | || |              | || |              | || |              | |
+| | . | 0 | = | | / | | | '--------------' || '--------------' || '--------------' || '--------------' |
+| |___|___|___| |___| |  '----------------'  '----------------'  '----------------'  '----------------' 
+|_____________________|
+"""
+
 def add(n1, n2):
     return n1 + n2
 
@@ -112,14 +131,14 @@ operators = {
 }
 
 def calculator():
+    print(logo)
     num1 = float(input("What's the first number? "))
-
-    for symbol in operators:
-        print(symbol)
 
     should_continue = True
 
     while should_continue:
+        for symbol in operators:
+            print(symbol)
         operation_symbol = input("Pick an operator from the list above: Add, Subtract, Multiply or Divide: ")
         num2 = float(input("What's the second number? "))
         answer = operators[operation_symbol](num1, num2)
@@ -127,14 +146,17 @@ def calculator():
         print(f"{num1} {operation_symbol} {num2} = {answer}")
 
         user_dec = input("Type 'y' to continue, 'a' to start again, or 'n' to quit... ").lower()
-        
+
         if user_dec == 'n':
             break
         elif user_dec == 'a':
             should_continue = False
+            clear()
             calculator()
         else:
             num1 = answer
+            clear()
+            print(logo)
             continue
 
 if __name__ == '__main__':
